@@ -22,7 +22,7 @@ export function CardModal({ selectedCard, onClose }: CardModalProps) {
   if (!selectedCardData) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 animate-fade-in p-8">
+    <div className="fixed inset-0 flex items-center justify-center z-50 animate-fade-in p-4 md:p-8">
       <div className="absolute inset-0 bg-[#b8e3d6]/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-4xl mx-auto animate-fade-in-up">
         <button 
@@ -44,12 +44,12 @@ export function CardModal({ selectedCard, onClose }: CardModalProps) {
             />
           </div>
           
-          <div className="absolute bottom-8 left-8 max-w-sm">
-            <h2 className="text-[#FFD700] text-2xl font-bold mb-4 font-['Press_Start_2P']">
+          <div className="absolute bottom-4 md:bottom-8 left-4 md:left-8 right-4 md:right-auto md:max-w-sm">
+            <h2 className="text-[#FFD700] text-xl md:text-2xl font-bold mb-2 md:mb-4 font-['Press_Start_2P']">
               {selectedCardData.name}
             </h2>
-            <div className="bg-[#1a2e35]/90 p-4 rounded-2xl backdrop-blur-sm">
-              <p className="text-white text-xs leading-relaxed font-['Press_Start_2P']" style={{
+            <div className="bg-[#1a2e35]/90 p-3 md:p-4 rounded-2xl backdrop-blur-sm">
+              <p className="text-white text-[10px] md:text-xs leading-relaxed font-['Press_Start_2P']" style={{
                 textShadow: '2px 2px 0px rgba(0, 0, 0, 0.5)'
               }}>
                 {selectedCardData.description}

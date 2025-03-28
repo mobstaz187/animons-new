@@ -13,6 +13,10 @@ export function CardCarousel({ selectedCard, onCardSelect }: CardCarouselProps) 
     loop: true,
     align: 'start',
     slidesToScroll: 1,
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 1024px)': { slidesToScroll: 3 },
+    }
   });
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
@@ -26,7 +30,7 @@ export function CardCarousel({ selectedCard, onCardSelect }: CardCarouselProps) 
           {cards.map((card) => (
             <div
               key={card.id}
-              className="relative flex-[0_0_200px] mx-2"
+              className="relative flex-[0_0_280px] md:flex-[0_0_240px] lg:flex-[0_0_200px] mx-2"
             >
               <div
                 onClick={() => onCardSelect(card.id)}
@@ -36,7 +40,7 @@ export function CardCarousel({ selectedCard, onCardSelect }: CardCarouselProps) 
                     : ''
                 }`}
               >
-                <div className="relative h-[280px] pixel-corners overflow-hidden">
+                <div className="relative h-[360px] md:h-[320px] lg:h-[280px] pixel-corners overflow-hidden">
                   <img
                     src={card.image}
                     alt={card.name}

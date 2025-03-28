@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, Users, Trophy } from 'lucide-react';
+import { Home, Users, Trophy, Menu, X } from 'lucide-react';
 import { SOCIAL_LINKS, FEATURE_FLAGS, UI_CONFIG } from '../config';
 import { DailyDrawModal } from './DailyDrawModal';
 
@@ -8,13 +8,15 @@ interface NavItemProps {
   text: string;
   active?: boolean;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
-function NavItem({ icon, text, active = false, disabled = false }: NavItemProps) {
+function NavItem({ icon, text, active = false, disabled = false, onClick }: NavItemProps) {
   return (
     <div className="relative group">
       <a
         href={disabled ? "#" : "#"}
+        onClick={onClick}
         className={`flex items-center space-x-2 px-4 py-2 rounded ${
           active 
             ? 'bg-game-blue text-game-light' 
@@ -37,6 +39,7 @@ function NavItem({ icon, text, active = false, disabled = false }: NavItemProps)
 
 export function Navigation() {
   const [isDrawModalOpen, setIsDrawModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -48,7 +51,7 @@ export function Navigation() {
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="flex items-center justify-between h-20">
             {/* Logo Container with Absolute Positioning */}
-            <div className="absolute -left-15 -top-7 z-50">
+            <div className="absolute -left-15 -top-7 z-50 hidden md:block">
               {/* Background Glow Effect */}
               <div className="absolute inset-0 -top-4 -bottom-4 -left-6 -right-6 bg-gradient-radial from-game-darker via-game-darker/80 to-transparent blur-lg"></div>
               
@@ -73,8 +76,26 @@ export function Navigation() {
               </span>
             </div>
 
-            {/* Navigation Items - Centered */}
-            <div className="absolute left-1/2 -translate-x-1/2 flex items-center space-x-2">
+            {/* Mobile Logo */}
+            <div className="md:hidden">
+              <span 
+                className="font-['Pokemon_Solid'] text-[#FFCB05] text-3xl" 
+                style={{
+                  textShadow: `
+                    -2px -2px 0 #2A75BB,
+                    2px -2px 0 #2A75BB,
+                    -2px 2px 0 #2A75BB,
+                    2px 2px 0 #2A75BB,
+                    0 0 8px rgba(42, 117, 187, 0.8)
+                  `,
+                }}
+              >
+                ANIMON
+              </span>
+            </div>
+
+            {/* Navigation Items - Desktop */}
+            <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center space-x-2">
               <NavItem icon={<Home size={18} />} text="HOME" active />
               <NavItem 
                 icon={<Users size={18} />} 
@@ -89,7 +110,7 @@ export function Navigation() {
             </div>
 
             {/* Right Side Items */}
-            <div className="ml-auto flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <a
                 href={SOCIAL_LINKS.twitter}
                 target="_blank"
@@ -119,7 +140,7 @@ export function Navigation() {
               </a>
               <button 
                 onClick={() => setIsDrawModalOpen(true)}
-                className="group relative px-6 py-2 bg-game-dark border-2 border-game-cyan/30 hover:border-game-cyan transition-all duration-300"
+                className="hidden md:block group relative px-6 py-2 bg-game-dark border-2 border-game-cyan/30 hover:border-game-cyan transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                 <div className="absolute inset-0 bg-game-cyan/0 group-hover:bg-game-cyan/10 transition-colors duration-300"></div>
@@ -134,9 +155,52 @@ export function Navigation() {
                   <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-game-cyan"></div>
                 </div>
               </button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden game-button-secondary"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-20 inset-x-0 bg-game-darker/95 backdrop-blur-md border-t border-game-cyan/20">
+            <div className="px-4 py-6 space-y-4">
+              <NavItem 
+                icon={<Home size={18} />} 
+                text="HOME" 
+                active 
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <NavItem 
+                icon={<Users size={18} />} 
+                text="ALLIANCE" 
+                disabled={!FEATURE_FLAGS.allianceEnabled}
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <NavItem 
+                icon={<Trophy size={18} />} 
+                text="BATTLES" 
+                disabled={!FEATURE_FLAGS.battlesEnabled}
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <button 
+                onClick={() => {
+                  setIsDrawModalOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full game-button-primary"
+              >
+                Daily Draw
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       <DailyDrawModal 
