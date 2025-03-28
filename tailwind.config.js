@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      spacing: {
+        '15': '3.75rem', // This adds support for -left-15
+      },
       colors: {
         'game': {
           'dark': '#0A1929',

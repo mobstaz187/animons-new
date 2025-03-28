@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { cards } from '../data/cards';
+import cardLoadingVideo from '../Assets/Lottery/CardLoading.mp4';
 
 interface DailyDrawModalProps {
   isOpen: boolean;
@@ -110,7 +111,7 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
           <div className="relative w-full aspect-[3/4] max-w-md pixel-corners overflow-hidden bg-game-dark/60 backdrop-blur-sm">
             {isDrawing ? (
               <video
-                src="./src/Assets/Lottery/CardLoading.mp4"
+                src={cardLoadingVideo}
                 className="absolute inset-0 w-full h-full object-cover"
                 autoPlay
                 loop

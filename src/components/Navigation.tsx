@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Home, Users, Trophy } from 'lucide-react';
-import { SOCIAL_LINKS, FEATURE_FLAGS } from '../config';
+import { SOCIAL_LINKS, FEATURE_FLAGS, UI_CONFIG } from '../config';
 import { DailyDrawModal } from './DailyDrawModal';
 
 interface NavItemProps {
@@ -19,7 +19,7 @@ function NavItem({ icon, text, active = false, disabled = false }: NavItemProps)
           active 
             ? 'bg-game-blue text-game-light' 
             : 'text-game-light hover:bg-game-blue/20'
-        } ${disabled ? 'cursor-not-allowed opacity-50' : ''} transition-all duration-300`}
+        } ${disabled ? 'cursor-not-allowed' : ''} transition-all duration-300`}
       >
         <div className="flex items-center space-x-2 relative">
           {icon}
@@ -40,20 +40,38 @@ export function Navigation() {
 
   return (
     <>
-      <nav className="bg-game-darker border-b-4 border-game-blue/20 relative">
+      <nav className="fixed top-0 left-0 right-0 z-50">
+        {/* Background with blur effect */}
+        <div className="absolute inset-0 bg-game-darker/95 backdrop-blur-sm"></div>
         <div className="absolute inset-0 scanlines"></div>
+        
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <span className="text-3xl tracking-widest font-bold text-white" style={{
-              textShadow: `
-                3px 3px 0 rgba(0, 0, 0, 0.9),
-                -2px -2px 0 rgba(0, 0, 0, 0.9),
-                2px -2px 0 rgba(0, 0, 0, 0.9),
-                -2px 2px 0 rgba(0, 0, 0, 0.9),
-                0 0 20px rgba(0, 0, 0, 0.8)
-              `
-            }}>ANIMON</span>
+            {/* Logo Container with Absolute Positioning */}
+            <div className="absolute -left-15 -top-7 z-50">
+              {/* Background Glow Effect */}
+              <div className="absolute inset-0 -top-4 -bottom-4 -left-6 -right-6 bg-gradient-radial from-game-darker via-game-darker/80 to-transparent blur-lg"></div>
+              
+              {/* Logo Text */}
+              <span 
+                className="relative font-['Pokemon_Solid'] text-[#FFCB05]" 
+                style={{
+                  fontSize: UI_CONFIG.logo.fontSize,
+                  textShadow: `
+                    -3px -3px 0 #2A75BB,
+                    3px -3px 0 #2A75BB,
+                    -3px 3px 0 #2A75BB,
+                    3px 3px 0 #2A75BB,
+                    0 0 16px rgba(42, 117, 187, 0.8),
+                    0 0 32px rgba(42, 117, 187, 0.5)
+                  `,
+                  letterSpacing: '0.1em',
+                  transform: 'scale(1, 1.1)'
+                }}
+              >
+                ANIMON
+              </span>
+            </div>
 
             {/* Navigation Items - Centered */}
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center space-x-2">
@@ -71,7 +89,7 @@ export function Navigation() {
             </div>
 
             {/* Right Side Items */}
-            <div className="flex items-center space-x-4">
+            <div className="ml-auto flex items-center space-x-4">
               <a
                 href={SOCIAL_LINKS.twitter}
                 target="_blank"

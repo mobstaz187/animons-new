@@ -20,16 +20,7 @@ export function CardCarousel({ selectedCard, onCardSelect }: CardCarouselProps) 
 
   return (
     <div className="relative w-screen -mx-[50vw] left-1/2 right-1/2 overflow-hidden">
-      {/* Glowing background with radial gradient */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-game-cyan/5"></div>
-        <div className="absolute inset-0 bg-gradient-radial from-game-cyan/20 via-game-cyan/5 to-transparent"></div>
-        <div className="absolute inset-0 animate-pulse">
-          <div className="absolute inset-0 bg-gradient-radial from-game-cyan/10 via-transparent to-transparent blur-xl"></div>
-        </div>
-        <div className="absolute inset-0 scanlines"></div>
-      </div>
-      
+      {/* Cards Container */}
       <div className="relative overflow-hidden py-8" ref={emblaRef}>
         <div className="flex">
           {cards.map((card) => (

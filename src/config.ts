@@ -8,3 +8,11 @@ export const FEATURE_FLAGS = {
   allianceEnabled: false,
   battlesEnabled: false,
 };
+
+// UI Configuration
+export const UI_CONFIG = {
+  logo: {
+    fontSize: '5.1rem', // Reduced from 6rem (15% smaller)
+  },
+};
+

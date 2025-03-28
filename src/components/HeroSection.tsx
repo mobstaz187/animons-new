@@ -4,6 +4,7 @@ import kumamoVideo from '../Assets/HeroSection/Kumamo! I choose you!.mp4';
 import battleP2pImage from '../Assets/HeroSection/BattleP2p.png';
 import newJourneyImage from '../Assets/HeroSection/New Journey.png';
 import { HeroContentModal } from './HeroContentModal';
+import { DailyDrawModal } from './DailyDrawModal';
 
 interface HeroSectionProps {
   backgroundImage: string;
@@ -18,6 +19,7 @@ interface ContentItem {
 
 export function HeroSection({ backgroundImage }: HeroSectionProps) {
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
+  const [isDrawModalOpen, setIsDrawModalOpen] = useState(false);
 
   const contentItems: Record<string, ContentItem> = {
     gosu: {
@@ -53,37 +55,37 @@ export function HeroSection({ backgroundImage }: HeroSectionProps) {
       </div>
       
       <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-          {/* Left Column - Gosu */}
-          <div 
-            className="relative w-full h-[500px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
-            onClick={() => setSelectedContent(contentItems.gosu)}
-          >
-            <video
-              src={gosuVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
-              <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
-                Say Hello to Gosu
-              </h3>
-              <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
-              }}>
-                A legendary warrior whose mastery of ancient combat techniques makes them one of the most formidable fighters in Animon.
-              </p>
-            </div>
-          </div>
-
-          {/* Right Column - Kumamo with P2P and Journey */}
+        <div className="w-full space-y-4">
+          {/* Top Row - Combined Gosu & Kumamo */}
           <div className="grid grid-cols-2 gap-4">
-            {/* Kumamo Video Container */}
+            {/* Gosu Video */}
             <div 
-              className="relative w-full h-[500px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
+              className="relative w-full h-[400px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
+              onClick={() => setSelectedContent(contentItems.gosu)}
+            >
+              <video
+                src={gosuVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
+                  Say Hello to Gosu
+                </h3>
+                <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
+                }}>
+                  A legendary warrior whose mastery of ancient combat techniques makes them one of the most formidable fighters in Animon.
+                </p>
+              </div>
+            </div>
+
+            {/* Kumamo Video */}
+            <div 
+              className="relative w-full h-[400px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
               onClick={() => setSelectedContent(contentItems.kumamo)}
             >
               <video
@@ -105,51 +107,73 @@ export function HeroSection({ backgroundImage }: HeroSectionProps) {
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* Right side stack */}
-            <div className="space-y-4">
-              {/* P2P Battles */}
-              <div 
-                className="relative w-full h-[242px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
-                onClick={() => setSelectedContent(contentItems.battles)}
-              >
-                <img
-                  src={battleP2pImage}
-                  alt="Battle P2P"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
+          {/* Bottom Row - P2P, Daily Draw, Journey */}
+          <div className="grid grid-cols-3 gap-4">
+            {/* P2P Battles */}
+            <div 
+              className="relative w-full h-[300px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
+              onClick={() => setSelectedContent(contentItems.battles)}
+            >
+              <img
+                src={battleP2pImage}
+                alt="Battle P2P"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
+                  P2P Battles
+                </h3>
+                <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
+                }}>
+                  Challenge other trainers in intense real-time battles.
+                </p>
+              </div>
+            </div>
+
+            {/* Daily Draw */}
+            <div 
+              className="relative w-full h-[300px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
+              onClick={() => setIsDrawModalOpen(true)}
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center space-y-4">
                   <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
-                    P2P Battles
+                    Daily Draw
                   </h3>
-                  <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
+                  <p className="text-white text-xs leading-relaxed animate-fade-in-up px-4" style={{
                     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
                   }}>
-                    Challenge other trainers in intense real-time battles.
+                    Try your luck daily to win rare Animon cards!
                   </p>
+                  <button className="game-button-primary">
+                    Draw Now
+                  </button>
                 </div>
               </div>
+            </div>
 
-              {/* New Journey */}
-              <div 
-                className="relative w-full h-[242px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
-                onClick={() => setSelectedContent(contentItems.journey)}
-              >
-                <img
-                  src={newJourneyImage}
-                  alt="New Journey"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
-                  <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
-                    Begin Your Journey
-                  </h3>
-                  <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
-                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
-                  }}>
-                    Embark on an epic adventure through the digital realm.
-                  </p>
-                </div>
+            {/* New Journey */}
+            <div 
+              className="relative w-full h-[300px] border-2 border-game-cyan/30 bg-game-dark/60 backdrop-blur-sm pixel-corners overflow-hidden cursor-pointer hover:border-game-cyan/60 transition-colors duration-300"
+              onClick={() => setSelectedContent(contentItems.journey)}
+            >
+              <img
+                src={newJourneyImage}
+                alt="New Journey"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 p-3 space-y-2 border-t-2 border-game-cyan/30 bg-game-dark/80 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-game-yellow glow-text-yellow animate-fade-in-up tracking-wider">
+                  Begin Your Journey
+                </h3>
+                <p className="text-white text-xs leading-relaxed animate-fade-in-up" style={{
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
+                }}>
+                  Embark on an epic adventure through the digital realm.
+                </p>
               </div>
             </div>
           </div>
@@ -163,6 +187,11 @@ export function HeroSection({ backgroundImage }: HeroSectionProps) {
         description={selectedContent?.description || ''}
         videoSrc={selectedContent?.videoSrc}
         imageSrc={selectedContent?.imageSrc}
+      />
+
+      <DailyDrawModal 
+        isOpen={isDrawModalOpen}
+        onClose={() => setIsDrawModalOpen(false)}
       />
     </div>
   );
