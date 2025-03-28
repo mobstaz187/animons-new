@@ -5,6 +5,7 @@ export default {
     extend: {
       spacing: {
         '15': '3.75rem', // This adds support for -left-15
+        '26': '6.5rem', // This adds support for py-26
       },
       colors: {
         'game': {
