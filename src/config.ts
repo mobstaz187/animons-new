@@ -1,6 +1,6 @@
 // Social Media Links
 export const SOCIAL_LINKS = {
-  twitter: 'https://x.com/animon', // Change this URL as needed
+  twitter: 'https://x.com/animoncard', // Replace with your Twitter handle
 };
 
 // Navigation States

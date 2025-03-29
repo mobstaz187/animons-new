@@ -11,8 +11,6 @@ interface DailyDrawModalProps {
 export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
   const [isDrawing, setIsDrawing] = useState(false);
   const [drawnCard, setDrawnCard] = useState<typeof cards[0] | null>(null);
-  const [hasDrawn, setHasDrawn] = useState(false);
-  const [showShake, setShowShake] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<string>('');
   const [canDraw, setCanDraw] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -41,6 +39,7 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
       if (timeLeft <= 0) {
         setCanDraw(true);
         setTimeRemaining('');
+        setDrawnCard(null);
       } else {
         setCanDraw(false);
         const hours = Math.floor(timeLeft / (60 * 60 * 1000));
@@ -50,18 +49,17 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
       }
     };
 
-    checkDrawAvailability();
-    const timer = setInterval(checkDrawAvailability, 1000);
-    return () => clearInterval(timer);
+    if (isOpen) {
+      checkDrawAvailability();
+      const timer = setInterval(checkDrawAvailability, 1000);
+      return () => clearInterval(timer);
+    }
   }, [isOpen]);
 
   const drawCard = () => {
     if (!canDraw) return;
 
     setIsDrawing(true);
-    setHasDrawn(true);
-    setShowShake(false);
-    
     localStorage.setItem('lastDrawTime', new Date().getTime().toString());
     setCanDraw(false);
     
@@ -72,7 +70,6 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
         setDrawnCard(cards[randomCardIndex]);
       } else {
         setDrawnCard(null);
-        setShowShake(true);
       }
       setIsDrawing(false);
     }, 3000);
@@ -81,9 +78,8 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
   };
 
   const getMessage = () => {
-    if (!hasDrawn && canDraw) return "Try your luck!";
-    if (!canDraw) return `Next draw available in:\n${timeRemaining}`;
-    if (drawnCard === null) return "Sorry, try again tomorrow!";
+    if (canDraw) return "Try your luck!";
+    if (!canDraw && !drawnCard) return `Try again in:\n${timeRemaining}`;
     return "";
   };
 
@@ -104,9 +100,33 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
         </button>
         
         <div className="h-full flex flex-col items-center justify-center p-4 space-y-8">
-          <h2 className="text-4xl font-bold tracking-wider text-white glow-text">
-            Daily Draw
-          </h2>
+          <div className="space-y-4 text-center">
+            <h2 className="text-4xl font-bold tracking-wider text-white glow-text">
+              Daily Draw
+            </h2>
+            
+            {/* Discord Banner */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#5865F2]/10 blur-xl animate-pulse"></div>
+              <div className="relative bg-game-dark/80 backdrop-blur-sm border-2 border-[#5865F2]/30 rounded-xl px-6 py-3">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#5865F2]/20 via-[#5865F2]/10 to-transparent rounded-xl"></div>
+                <div className="flex flex-col items-center space-y-1">
+                  <p className="text-[#5865F2] text-sm tracking-wider font-bold glow-text">
+                    Coming Soon
+                  </p>
+                  <p className="text-[10px] text-white/80">
+                    Link your Discord profile for exclusive rewards
+                  </p>
+                </div>
+                
+                {/* Corner Accents */}
+                <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#5865F2] rounded-tl"></div>
+                <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#5865F2] rounded-tr"></div>
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#5865F2] rounded-bl"></div>
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#5865F2] rounded-br"></div>
+              </div>
+            </div>
+          </div>
           
           <div className="relative w-full aspect-[3/4] max-w-md pixel-corners overflow-hidden bg-game-dark/60 backdrop-blur-sm">
             {isDrawing ? (
@@ -136,7 +156,7 @@ export function DailyDrawModal({ isOpen, onClose }: DailyDrawModalProps) {
               </div>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-radial from-game-darker via-game-dark to-game-darker">
-                <p className={`text-white/80 text-center px-4 glow-text whitespace-pre-line ${showShake ? 'animate-shake' : ''}`}>
+                <p className="text-white/80 text-center px-4 glow-text whitespace-pre-line">
                   {getMessage()}
                 </p>
               </div>
