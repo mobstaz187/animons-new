@@ -3,6 +3,7 @@ import { Navigation } from './components/Navigation';
 import { HeroSection } from './components/HeroSection';
 import { CardCarousel } from './components/CardCarousel';
 import { CardModal } from './components/CardModal';
+import { RoadmapTab } from './components/RoadmapTab';
 
 // Import background images
 import gifAnimonBg from './Assets/Home/Background/Gif Animon.gif';
@@ -17,49 +18,13 @@ function App() {
   return (
     <div className="min-h-screen bg-cyber-dark text-cyber-light">
       <Navigation />
+      <RoadmapTab />
       
       <main className="relative pt-20">
         <HeroSection backgroundImage={randomBackground} />
 
-        {/* Separator Line with Collection Label */}
+        {/* Separator Line */}
         <div className="relative py-2">
-          {/* Collection Label */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
-            <div className="relative inline-flex items-center">
-              {/* Decorative Line Left */}
-              <div className="absolute right-full mr-4 w-24 h-[2px]">
-                <div className="absolute inset-0 bg-game-cyan/30"></div>
-                <div className="absolute inset-0 bg-gradient-to-l from-game-cyan to-transparent"></div>
-                <div className="absolute inset-0 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                  <div className="absolute inset-0 bg-gradient-to-l from-game-cyan/50 to-transparent"></div>
-                </div>
-              </div>
-
-              {/* Label Text */}
-              <div className="relative px-6 py-2">
-                <div className="absolute inset-0 bg-game-dark/80 backdrop-blur-sm border-2 border-game-cyan/30 rounded-xl"></div>
-                <h2 className="relative text-2xl font-bold tracking-wider text-white glow-text">
-                  COLLECTION
-                </h2>
-                
-                {/* Corner Accents */}
-                <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-game-cyan rounded-tl"></div>
-                <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-game-cyan rounded-tr"></div>
-                <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-game-cyan rounded-bl"></div>
-                <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-game-cyan rounded-br"></div>
-              </div>
-
-              {/* Decorative Line Right */}
-              <div className="absolute left-full ml-4 w-24 h-[2px]">
-                <div className="absolute inset-0 bg-game-cyan/30"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-game-cyan to-transparent"></div>
-                <div className="absolute inset-0 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                  <div className="absolute inset-0 bg-gradient-to-r from-game-cyan/50 to-transparent"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px]">
             {/* Base glow layer */}
             <div className="absolute inset-0 bg-game-cyan/10 blur-sm animate-pulse"></div>
