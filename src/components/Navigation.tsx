@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Home, Users, Trophy, Menu, X } from 'lucide-react';
 import { SOCIAL_LINKS, FEATURE_FLAGS, UI_CONFIG } from '../config';
 import { DailyDrawModal } from './DailyDrawModal';
+import discordIcon from '../Assets/Discord.png';
 
 interface NavItemProps {
   icon: React.ReactNode;
@@ -93,6 +94,7 @@ export function Navigation() {
 
             {/* Right Side Items */}
             <div className="ml-auto flex items-center space-x-4">
+              {/* Twitter Button */}
               <a
                 href={SOCIAL_LINKS.twitter}
                 target="_blank"
@@ -120,6 +122,36 @@ export function Navigation() {
                   <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-game-cyan"></div>
                 </div>
               </a>
+
+              {/* Discord Button */}
+              <a
+                href={SOCIAL_LINKS.discord}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pixel-button-x group relative flex items-center justify-center w-10 h-10 bg-game-dark border-2 border-game-cyan/30 hover:border-game-cyan transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                <div className="absolute inset-0 bg-game-cyan/0 group-hover:bg-game-cyan/10 transition-colors duration-300"></div>
+                <div className="flex items-center justify-center w-full h-full">
+                  <img 
+                    src={discordIcon} 
+                    alt="Discord"
+                    className="w-5 h-5 object-contain"
+                    style={{
+                      filter: 'drop-shadow(0 0 2px rgba(0, 229, 255, 0.5))',
+                      imageRendering: 'pixelated'
+                    }}
+                  />
+                </div>
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-game-cyan/30 transition-colors duration-300"></div>
+                  <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-game-cyan"></div>
+                  <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-game-cyan"></div>
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-game-cyan"></div>
+                  <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-game-cyan"></div>
+                </div>
+              </a>
+
               <button 
                 onClick={() => setIsDrawModalOpen(true)}
                 className="group relative px-6 py-2 bg-game-dark border-2 border-game-cyan/30 hover:border-game-cyan transition-all duration-300"

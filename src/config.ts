@@ -1,6 +1,7 @@
 // Social Media Links
 export const SOCIAL_LINKS = {
-  twitter: 'https://x.com/animoncard', // Replace with your Twitter handle
+  twitter: 'https://x.com/animoncard',
+  discord: 'https://discord.gg/kQgPqPeD'
 };
 
 // Navigation States
@@ -15,3 +16,4 @@ export const UI_CONFIG = {
     fontSize: '6rem',
   },
 };
+
