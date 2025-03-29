@@ -4,6 +4,7 @@ import { HeroSection } from './components/HeroSection';
 import { CardCarousel } from './components/CardCarousel';
 import { CardModal } from './components/CardModal';
 import { RoadmapTab } from './components/RoadmapTab';
+import { ContractAddressButton } from './components/ContractAddressButton';
 
 // Import background images
 import gifAnimonBg from './Assets/Home/Background/Gif Animon.gif';
@@ -19,6 +20,7 @@ function App() {
     <div className="min-h-screen bg-cyber-dark text-cyber-light">
       <Navigation />
       <RoadmapTab />
+      <ContractAddressButton />
       
       <main className="relative pt-20">
         <HeroSection backgroundImage={randomBackground} />
