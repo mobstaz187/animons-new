@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { cards } from '../data/cards';
-import discordIcon from '../Assets/Discord.png';
 
 interface CardModalProps {
   selectedCard: number | null;
@@ -26,35 +25,13 @@ export function CardModal({ selectedCard, onClose }: CardModalProps) {
     <div className="fixed inset-0 flex items-center justify-center z-50 animate-fade-in p-4 md:p-8">
       <div className="absolute inset-0 bg-[#b8e3d6]/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-4xl mx-auto animate-fade-in-up">
-        {/* Action Buttons */}
-        <div className="absolute -top-4 -right-4 z-10 flex items-center space-x-2">
-          {/* Discord Button */}
-          <a
-            href="https://discord.gg/kQgPqPeD"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="game-button-secondary pixel-corners p-2 flex items-center justify-center"
-            aria-label="Join Discord"
-          >
-            <img 
-              src={discordIcon} 
-              alt="Discord"
-              className="w-6 h-6 object-contain"
-              style={{
-                filter: 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))',
-                imageRendering: 'pixelated'
-              }}
-            />
-          </a>
-
-          {/* Close Button */}
-          <button 
-            onClick={onClose}
-            className="game-button-secondary z-10 p-2 rounded-xl"
-          >
-            <X size={24} />
-          </button>
-        </div>
+        {/* Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute -top-4 -right-4 game-button-secondary z-10 p-2 rounded-xl"
+        >
+          <X size={24} />
+        </button>
 
         <div className="relative w-full aspect-[4/3] bg-[#b8e3d6] rounded-3xl overflow-hidden shadow-2xl">
           <div className="absolute inset-0">
